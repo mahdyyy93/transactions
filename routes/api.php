@@ -27,11 +27,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'users', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [UserController::class, 'index']);
 });
 
-Route::group(['prefix' => 'transaction', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [TransactionController::class, 'index']);
     Route::post('/', [TransactionController::class, 'create']);
     Route::post('commit/{transaction_id}', [TransactionCommitController::class, 'update']);

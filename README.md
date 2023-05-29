@@ -1,9 +1,9 @@
-Here's a sample `README.md` file for your Laravel application running with Sail. You can customize it according to your project's requirements.
+## About
 
-```markdown
-# Laravel Application with Sail
-
-This is a Laravel application that uses Laravel Sail for a simple and convenient local development environment.
+- This project is to show some practices of common software development patterns.
+- Use case is money lending. 
+- Build on PHP Laravel 10.
+- Uses Laravel Sail for a simple and convenient local development environment.
 
 ## Requirements
 
@@ -15,8 +15,8 @@ This is a Laravel application that uses Laravel Sail for a simple and convenient
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/your-repo.git
-cd your-repo
+git clone https://github.com/mahdyyy93/transactions/.git
+cd transactions
 ```
 
 2. Install dependencies using Composer:
@@ -49,7 +49,7 @@ If you're using Windows, you may need to use the `sail` command from the `vendor
 vendor\bin\sail up
 ```
 
-6. Run the database migrations and seeders (if any):
+6. Run the database migrations and seeders:
 
 ```bash
 ./vendor/bin/sail artisan migrate --seed
@@ -115,5 +115,3 @@ Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for details on how to co
 
 This project is licensed under the [MIT License](LICENSE.md).
 ```
-
-Make sure to replace `yourusername` and `your-repo` with the appropriate values for your GitHub repository. You can also add any additional information or instructions specific to your project.

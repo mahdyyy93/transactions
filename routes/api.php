@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TransactionCommitController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\Admin\TransactionCommitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,12 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login']);
 });
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'users', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [UserController::class, 'index']);
 });
 
-Route::group(['prefix' => 'transaction', 'middleware' => ['auth:sanctum']], function () {
+Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [TransactionController::class, 'index']);
     Route::post('/', [TransactionController::class, 'create']);
-    Route::post('commit/{transaction_id}', [TransactionCommitController::class, 'update']);
+    Route::post('commit/{transaction_id}', [TransactionCommitController::class, 'update'])->middleware('is_admin');
 });

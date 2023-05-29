@@ -12,7 +12,7 @@ class Commit
         $transaction = Transaction::find($t_id);
 
         if ($transaction) {
-            $transaction->status_id = 1;
+            $transaction->status_id = 2;
             $transaction->save();
 
             return $transaction;

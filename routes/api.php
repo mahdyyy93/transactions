@@ -34,5 +34,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth:sanctum']], function (
 Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [TransactionController::class, 'index']);
     Route::post('/', [TransactionController::class, 'create']);
+    
+    Route::post('commit/{transaction_id}', [TransactionCommitController::class, 'update'])->middleware('is_admin');
     Route::post('commit/{transaction_id}', [TransactionCommitController::class, 'update'])->middleware('is_admin');
 });

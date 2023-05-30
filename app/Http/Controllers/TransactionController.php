@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DTOs\TransactionInitiate;
-use App\Http\Requests\TransactionCreateRequest;
-use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\DTOs\TransactionInitiate;
 use App\Services\Transactions\Get;
 use App\Services\Transactions\Initiate;
-use Illuminate\Http\Request;
+use App\Http\Resources\TransactionResource;
+use App\Http\Requests\TransactionIndexRequest;
+use App\Http\Requests\TransactionCreateRequest;
 
 class TransactionController extends Controller
 {
@@ -20,12 +21,16 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(TransactionIndexRequest $request)
     {
+        $status = $request->query('status_id');
+
         return TransactionResource::collection(
-            $this->transactionGet->userTransactions(
-                $request->user()
-            )
+            Transaction::filterByUserIfNotAdmin()
+            ->when($status, function($query, $status) {
+                    return $query->where('status_id', $status);
+                })
+            ->get()
         );
     }
 

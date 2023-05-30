@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model implements Auditable
@@ -24,12 +25,16 @@ class Transaction extends Model implements Auditable
         return $this->hasOne(Status::class);
     }
 
-    public function scopeFilterByUser($query)
+    public function scopeFilterByUserIfNotAdmin(Builder $query, $user = null)
     {
-        if (Auth::user() && !Auth::user()->is_admin) {
-            return $query->where('user_id', Auth::user()->id);
+        if ($user === null) {
+            $user = Auth::user();
         }
-
+    
+        if ($user && !$user->is_admin) {
+            return $query->where('user_id', $user->id);
+        }
+    
         return $query;
     }
     

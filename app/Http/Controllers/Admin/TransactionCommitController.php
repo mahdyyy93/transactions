@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Resources\TransactionResource;
+use Illuminate\Http\Request;
 use App\Services\Transactions\Commit;
+use App\Http\Resources\TransactionResource;
 
 class TransactionCommitController
 {
@@ -12,10 +13,11 @@ class TransactionCommitController
     /**
      * Update the specified resource in storage.
      */
-    public function update(int $transaction_id)
+    public function update(Request $request)
     {
-        return TransactionResource::make(
-            $this->commit_service->commit($transaction_id)
-        );
+        return response()->json(['data' => TransactionResource::make(
+            $this->commit_service->commit($request->request->get('transaction_id'))
+        )], 201);
+        
     }
 }

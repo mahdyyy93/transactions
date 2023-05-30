@@ -2,7 +2,7 @@
 
 - This project is to show some practices of common software development patterns.
 - Use case is money lending. 
-- Build on PHP Laravel 10.
+- Built on PHP Laravel 10.
 - Uses Laravel Sail for a simple and convenient local development environment.
 
 ## Requirements

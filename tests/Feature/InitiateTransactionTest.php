@@ -8,7 +8,7 @@ use Database\Seeders\StatusSeeder;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class InitiatingTransactionTest extends TestCase
+class InitiateTransactionTest extends TestCase
 {
     use RefreshDatabase;
 

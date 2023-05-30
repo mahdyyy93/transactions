@@ -25,6 +25,11 @@ class Transaction extends Model implements Auditable
         return $this->hasOne(Status::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeFilterByUserIfNotAdmin(Builder $query, $user = null)
     {
         if ($user === null) {

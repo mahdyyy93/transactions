@@ -22,7 +22,7 @@ class TransactionIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status_id' => 'required|exists:statuses,id|not_in:0',
+            'status_id' => 'exists:statuses,id|not_in:0',
         ];
     }
 }

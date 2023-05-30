@@ -22,7 +22,7 @@ class InitiatingTransactionTest extends TestCase
         $this->user = User::factory()->create();
     }
     
-    public function test_example(): void
+    public function test_transaction_is_initiated(): void
     {
         $response = $this->actingAs($this->user)->post('/api/transactions', [
             "amount" => 50

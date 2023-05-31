@@ -14,9 +14,14 @@ Lately, not only PHP but also other languages, are taking the side of restrict t
 
 Laravel with it's ecosystem is one of the best in the market, it's easy to use and maintain and improves code reuseablity. It helps to shift focus to business logic.
 
+## App features
+- User initiates a transaction.
+- Admin commits transactions.   
+
 ## To do
 - Send email to users when transaction status has changed
 - status_id as constants from database not hard coded
+- Implement user wallets
 - Fix test workflow 
 
 ## Requirements

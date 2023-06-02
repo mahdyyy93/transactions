@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Transaction;
+use App\Notifications\TransactionInitiated;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\TransactionStatusChanged;
 
@@ -13,7 +14,7 @@ class TransactionObserver
      */
     public function created(Transaction $transaction): void
     {
-        //
+        Notification::send($transaction->user, new TransactionInitiated($transaction)); 
     }
 
     /**

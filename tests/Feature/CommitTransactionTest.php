@@ -6,7 +6,9 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Transaction;
 use Database\Seeders\StatusSeeder;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Testing\Fluent\AssertableJson;
+use App\Notifications\TransactionStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommitTransactionTest extends TestCase
@@ -21,6 +23,8 @@ class CommitTransactionTest extends TestCase
     {
         parent::setUp();
 
+        Notification::fake();
+        
         $this->seed(StatusSeeder::class);
 
         $this->user = User::factory()->create();
@@ -52,6 +56,10 @@ class CommitTransactionTest extends TestCase
             'id' => $this->transaction->id,
             'status_id' => 2,
         ]);
+        
+        Notification::assertSentTo(
+            [$this->user], TransactionStatusChanged::class
+        );
     }
 
 
@@ -65,5 +73,9 @@ class CommitTransactionTest extends TestCase
             'id' => $this->transaction->id,
             'status_id' => $this->transaction->status_id,
         ]);
+
+        Notification::assertNotSentTo(
+            [$this->user], TransactionStatusChanged::class
+        );
     }
 }

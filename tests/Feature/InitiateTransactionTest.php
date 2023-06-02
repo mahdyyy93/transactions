@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use Database\Seeders\StatusSeeder;
+use App\Notifications\TransactionInitiated;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,7 +20,10 @@ class InitiateTransactionTest extends TestCase
     {
         parent::setUp();
 
+        Notification::fake();
+
         $this->seed(StatusSeeder::class);
+        
         $this->user = User::factory()->create();
     }
     
@@ -46,5 +51,9 @@ class InitiateTransactionTest extends TestCase
         $this->assertDatabaseHas('transactions', [
             'id' => $response->decodeResponseJson()['data']['id'],
         ]);
+
+        Notification::assertSentTo(
+            [$this->user], TransactionInitiated::class
+        );
     }
 }

@@ -23,7 +23,7 @@ class TransactionObserver
     public function updated(Transaction $transaction): void
     {
         if ($transaction->isDirty('status_id')) {
-            Notification::send($transaction->user, new TransactionStatusChanged($transaction->code));    
+            Notification::send($transaction->user, new TransactionStatusChanged($transaction));    
         }
     }
 

@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -15,7 +15,7 @@ class TransactionStatusChanged extends Notification
      * Create a new notification instance.
      */
     public function __construct(
-        protected string $code
+        protected Transaction $transaction
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class TransactionStatusChanged extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line("Your transaction with code: $this->code status has changed");
+                    ->line("Transaction: ".$this->transaction->code." status has changed to ".$this->transaction->status->name);
     }
 
     /**

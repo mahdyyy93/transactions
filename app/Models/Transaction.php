@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Observable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -12,6 +13,7 @@ class Transaction extends Model implements Auditable
 {
     use HasFactory;
     use \OwenIt\Auditing\Auditable;
+    use Observable;
 
     protected $fillable = [
         'code',

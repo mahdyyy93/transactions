@@ -19,9 +19,9 @@ Laravel with it's ecosystem is one of the best in the market, it's easy to use a
 - Admin commits transactions.   
 
 ## To do
-- Send notification to users when their transaction status has changed
 - status_id as constants from database not hard coded
 - Implement user wallets
+- Apply currencies to transactions table
 - Fix test workflow 
 
 ## Requirements

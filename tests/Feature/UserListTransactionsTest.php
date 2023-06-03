@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Transaction;
 use Database\Seeders\StatusSeeder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserListTransactionsTest extends TestCase
@@ -19,6 +20,8 @@ class UserListTransactionsTest extends TestCase
     public function setUp(): void 
     {
         parent::setUp();
+
+        Notification::fake();
 
         $this->seed(StatusSeeder::class);
         $this->users = User::factory()->count(2)->create();

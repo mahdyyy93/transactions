@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\Admin\TransactionCommitController;
+use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,6 @@ Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], fun
 });
 
 Route::group(['prefix' => 'commit', 'middleware' => ['auth:sanctum']], function () {
-    Route::post('/', [TransactionCommitController::class, 'update'])->middleware('is_admin');
-    Route::post('/', [TransactionCommitController::class, 'update'])->middleware('is_admin');
+    Route::post('/', [AdminTransactionController::class, 'update'])->middleware('is_admin');
+    Route::post('/', [AdminTransactionController::class, 'update'])->middleware('is_admin');
 });

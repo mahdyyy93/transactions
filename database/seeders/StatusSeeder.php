@@ -14,7 +14,7 @@ class StatusSeeder extends Seeder
     {
         Status::insert([
             [
-                'name' => 'initiat',
+                'name' => 'initiate',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -34,7 +34,7 @@ class StatusSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'disburs',
+                'name' => 'disburse',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TransactionCommitRequest extends FormRequest
+class TransactionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,7 @@ class TransactionCommitRequest extends FormRequest
     {
         return [
             'transaction_id' => 'required|exists:transactions,id',
+            'status_id' => 'required|exists:statuses,id',
         ];
     }
 }

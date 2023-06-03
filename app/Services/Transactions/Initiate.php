@@ -2,9 +2,11 @@
 
 namespace App\Services\Transactions;
 
-use App\DTOs\TransactionInitiate;
+use App\Models\Status;
+use App\Enums\StatusEnum;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
+use App\DTOs\TransactionInitiate;
 
 class Initiate
 {
@@ -14,7 +16,7 @@ class Initiate
             'code' => Str::random(6),
             'user_id' => $dto->user_id,
             'amount' => $dto->amount,
-            'status_id' => 1,
+            'status_id' => Status::findByName(StatusEnum::INITIATE)->id,
         ]);
     }
 }

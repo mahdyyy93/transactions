@@ -2,17 +2,19 @@
 
 namespace App\Services\Transactions;
 
+use App\Models\Status;
+use App\Enums\StatusEnum;
 use App\Models\Transaction;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Commit
+class Update
 {
-    public function commit(int $t_id)
+    public function update(int $t_id, int $status_id)
     {
         $transaction = Transaction::find($t_id);
 
         if ($transaction) {
-            $transaction->status_id = 2;
+            $transaction->status_id = $status_id;
             $transaction->save();
 
             return $transaction;

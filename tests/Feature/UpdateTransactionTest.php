@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Status;
+use App\Enums\StatusEnum;
 use App\Models\Transaction;
 use Database\Seeders\StatusSeeder;
 use Illuminate\Support\Facades\Notification;
@@ -11,7 +13,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use App\Notifications\TransactionStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CommitTransactionTest extends TestCase
+class UpdateTransactionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,7 +37,13 @@ class CommitTransactionTest extends TestCase
 
     public function test_admin_commit_transaction(): void
     {
-        $response = $this->actingAs($this->admin)->post('/api/commit/', ['transaction_id' => $this->transaction->id]);
+        $response = $this->actingAs($this->admin)->post(
+            '/api/commit/', 
+            [
+                'transaction_id' => $this->transaction->id,
+                'status_id' => Status::findByName(StatusEnum::COMMIT)->id,
+            ]
+        );
         
         $response->assertStatus(201);
         
@@ -54,7 +62,7 @@ class CommitTransactionTest extends TestCase
 
         $this->assertDatabaseHas('transactions', [
             'id' => $this->transaction->id,
-            'status_id' => 2,
+            'status_id' => Status::findByName(StatusEnum::COMMIT)->id,
         ]);
         
         Notification::assertSentTo(
@@ -62,8 +70,42 @@ class CommitTransactionTest extends TestCase
         );
     }
 
+    public function test_admin_reject_transaction(): void
+    {
+        $response = $this->actingAs($this->admin)->post(
+            '/api/commit/', 
+            [
+                'transaction_id' => $this->transaction->id,
+                'status_id' => Status::findByName(StatusEnum::REJECT)->id,
+            ]
+        );
+        
+        $response->assertStatus(201);
+        
+        $response->assertJson(fn (AssertableJson $json) =>
+            $json
+                ->has('data', fn (AssertableJson $json) => 
+                    $json
+                        ->has('code')
+                        ->has('user_id')
+                        ->has('amount')
+                        ->has('status_id')
+                        ->has('id')
+                        ->etc()
+                )
+        );
 
-    public function test_only_admin_commit_transaction(): void
+        $this->assertDatabaseHas('transactions', [
+            'id' => $this->transaction->id,
+            'status_id' => Status::findByName(StatusEnum::REJECT)->id,
+        ]);
+        
+        Notification::assertSentTo(
+            [$this->user], TransactionStatusChanged::class
+        );
+    }
+
+    public function test_only_admin_can_commit_or_reject_transaction(): void
     {
         $response = $this->actingAs($this->user)->post('/api/commit/', ['transaction_id' => $this->transaction->id]);
         

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Update
 {
-    public function update(int $t_id, int $status_id)
+    public function update(int $t_id, int $status_id): Transaction
     {
         $transaction = Transaction::find($t_id);
 

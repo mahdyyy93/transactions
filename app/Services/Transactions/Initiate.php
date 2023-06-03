@@ -10,7 +10,7 @@ use App\DTOs\TransactionInitiate;
 
 class Initiate
 {
-    public function create(TransactionInitiate $dto)
+    public function create(TransactionInitiate $dto): Transaction
     {
         return Transaction::create([
             'code' => Str::random(6),

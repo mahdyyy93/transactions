@@ -3,22 +3,24 @@
 - This project is to show some practices of common software development patterns.
 - Still in beta phase.
 - Use case is money lending. 
-- Built on PHP Laravel 10.
+- Built on PHP 8.2 Laravel 10.
 - Uses Laravel Sail for a simple and convenient local development environment.
 
 
 ## About PHP and Laravel
 PHP, as a scripting language, has always been easy to use and focused on server side development, it has always been popular and have great packages and great community with different backgrounds and experience levels. and it a good choice for building services that helps businesses. 
 
-Lately, not only PHP but also other languages, are taking the side of restrict types with all it's benefits.
+Lately, not only PHP but also other languages, are taking the side of restrict types to make use of it's advantages.
 
 Laravel with it's ecosystem is one of the best in the market, it's easy to use and maintain and improves code reuseablity. It helps to shift focus to business logic.
 
 ## App features
+
 - User initiates a transaction.
 - Admin commits transactions.   
 
 ## To do
+
 - Implement user wallets
 - Apply currencies to transactions table
 - Fix test workflow 

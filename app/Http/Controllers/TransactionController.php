@@ -14,8 +14,7 @@ use App\Http\Requests\TransactionCreateRequest;
 class TransactionController extends Controller
 {
     public function __construct(
-        public Initiate $transactionInitiate,
-        public Get $transactionGet
+        public Initiate $transactionInitiate
     ) {}
 
     /**

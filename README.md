@@ -16,8 +16,10 @@ Laravel with it's ecosystem is one of the best in the market, it's easy to use a
 
 ## App features
 
+- User Register and they recieve a welcome email.
 - User initiates a transaction.
-- Admin commits transactions.   
+- Admin commits or rejects transactions.
+- User gets notified when his transaction status has changed.
 
 ## To do
 

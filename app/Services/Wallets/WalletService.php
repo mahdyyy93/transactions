@@ -4,36 +4,28 @@ namespace App\Services\Wallets;
 
 use App\Models\User;
 use App\Models\Wallet;
+use App\Enums\StatusEnum;
+
 class WalletService
 {
-    protected $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
-    public function create()
+    public static function create($user_id)
     {
         $wallet = new Wallet();
-        $wallet->user_id = $this->user->id;
+        $wallet->user_id = $user_id;
         $wallet->balance = 5000;
         $wallet->save();
-        
+
         return $wallet;
     }
 
-    public function getCredit()
-    {
-        // Create a new wallet for the user.
-        $wallet = Wallet::create([
-            'user_id' => $this->user->id,
-            'balance' => 5000,
-        ]);
+    public function getCredit($user_id): int
+    {   
+        $user = User::find($user_id);
 
-        // Attach the wallet to the user.
-        $this->user->wallets()->attach($wallet->id);
+        if (!$user) abort(404, 'User not found');
 
-        return $wallet;
+        return $user->wallet->balance - $user->transactions()
+            ->whereIn('status_id', [StatusEnum::COMMIT])
+            ->sum('amount');
     }
 }

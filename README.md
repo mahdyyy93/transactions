@@ -20,10 +20,12 @@ Laravel with it's ecosystem is one of the best in the market, it's easy to use a
 - User initiates a transaction and recieves a notification (email).
 - Admin commits transactions.
 - User recieved a notification when ever loan status is changed.
+- User has a wallet having his overall balance, credit and debit are calculated for better accuracy.
+- Credit and debit is checked against saving a transaction in TransactionObserver.
 
 ## To do
 
-- Implement user wallets
+- Implement Settlements
 - Apply currencies to transactions table
 - Fix test workflow 
 

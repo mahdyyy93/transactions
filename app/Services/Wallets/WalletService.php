@@ -10,12 +10,13 @@ class WalletService
 {
     public static function create($user_id)
     {
-        $wallet = new Wallet();
-        $wallet->user_id = $user_id;
-        $wallet->balance = 5000;
-        $wallet->save();
+        $user = User::find($user_id);
 
-        return $wallet;
+        if (!$user) abort(404, 'User not found');
+
+        return $user->wallet()->create([
+            'balance' => 5000,
+        ]);
     }
 
     public function getCredit($user_id): int

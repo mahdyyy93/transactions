@@ -123,6 +123,19 @@ For Windows:
 vendor\bin\sail shell
 ```
 
+
+## Note 
+If you are using Fedora Linux you might need to temporarily disable SELinux by running the following command before you can do "sail up":
+```
+sudo setenforce 0
+```
+This command sets SELinux to permissive mode, allowing you to execute the script without being blocked by SELinux policies. Keep in mind that this reduces the security of your system, so it's not recommended for production environments.
+
+If the command works without any issues, you can re-enable SELinux by running:
+```
+sudo setenforce 1
+```
+
 ## Customizing Sail
 
 You can customize the Sail environment by editing the `docker-compose.yml` file in the root of your project. For more information on customizing Sail, refer to the [official Laravel Sail documentation](https://laravel.com/docs/sail).

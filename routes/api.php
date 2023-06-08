@@ -33,7 +33,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth:sanctum']], function (
 
 Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], function () {
     Route::get('/', [TransactionController::class, 'index']);
-    Route::post('/', [TransactionController::class, 'create']);
+    Route::post('/', [TransactionController::class, 'store']);
 });
 
 Route::group(['prefix' => 'commit', 'middleware' => ['auth:sanctum']], function () {

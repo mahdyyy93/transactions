@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Mail\Welcome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
@@ -20,9 +18,6 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('apiToken')->plainTextToken;
-        
-        Mail::to($user->email)
-            ->queue(new Welcome($user));
 
         return response()->json([
             'success' => true,

@@ -4,11 +4,34 @@ namespace App\Observers;
 
 use App\Models\Transaction;
 use App\Notifications\TransactionInitiated;
+use App\Services\Wallets\WalletService;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\TransactionStatusChanged;
 
 class TransactionObserver
 {
+    /**
+     * Handle events after all transactions are committed.
+     *
+     * @var bool
+     */
+    public $afterCommit = true;
+
+    public function __construct(
+        public WalletService $wallet_service
+    ) {}
+
+    /**
+     * Handle the Transaction "saving" event.
+     */
+    public function saving(Transaction $transaction): void
+    {
+        if ($transaction->amount > $this->wallet_service->getCredit($transaction->user_id))
+        {
+            abort(403, 'Not enough credit');
+        }
+    }
+
     /**
      * Handle the Transaction "created" event.
      */
@@ -25,29 +48,5 @@ class TransactionObserver
         if ($transaction->isDirty('status_id')) {
             Notification::send($transaction->user, new TransactionStatusChanged($transaction));    
         }
-    }
-
-    /**
-     * Handle the Transaction "deleted" event.
-     */
-    public function deleted(Transaction $transaction): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Transaction "restored" event.
-     */
-    public function restored(Transaction $transaction): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Transaction "force deleted" event.
-     */
-    public function forceDeleted(Transaction $transaction): void
-    {
-        //
     }
 }

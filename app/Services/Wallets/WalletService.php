@@ -8,7 +8,7 @@ use App\Enums\StatusEnum;
 
 class WalletService
 {
-    public static function create($user_id)
+    public static function create($user_id): Wallet
     {
         $user = User::find($user_id);
 
@@ -17,16 +17,5 @@ class WalletService
         return $user->wallet()->create([
             'balance' => 5000,
         ]);
-    }
-
-    public function getCredit($user_id): int
-    {   
-        $user = User::find($user_id);
-
-        if (!$user) abort(404, 'User not found');
-
-        return $user->wallet->balance - $user->transactions()
-            ->whereIn('status_id', [StatusEnum::COMMIT])
-            ->sum('amount');
     }
 }

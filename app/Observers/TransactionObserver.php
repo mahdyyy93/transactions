@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Models\Transaction;
 use App\Notifications\TransactionInitiated;
-use App\Services\Wallets\WalletService;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\TransactionStatusChanged;
 
@@ -17,16 +16,12 @@ class TransactionObserver
      */
     public $afterCommit = true;
 
-    public function __construct(
-        public WalletService $wallet_service
-    ) {}
-
     /**
      * Handle the Transaction "saving" event.
      */
     public function saving(Transaction $transaction): void
     {
-        if ($transaction->amount > $this->wallet_service->getCredit($transaction->user_id))
+        if ($transaction->amount > $transaction->user->wallet->credit)
         {
             abort(403, 'Not enough credit');
         }

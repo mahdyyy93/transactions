@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum StatusEnum: int
 {
-    case INITIATE = 1;
-    case COMMIT = 2;
-    case REJECT = 3;
-    case PENALTY = 4;
-    case DISBURSE = 5;
+    case initiate = 1;
+    case commit = 2;
+    case reject = 3;
+    case penality = 4;
+    case disburse = 5;
 }

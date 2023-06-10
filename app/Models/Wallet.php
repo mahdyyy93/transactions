@@ -25,7 +25,7 @@ class Wallet extends Model
     public function getCreditAttribute(): int
     {   
         return $this->balance - $this->user->transactions()
-            ->whereIn('status_id', [StatusEnum::COMMIT])
+            ->whereIn('status_id', [StatusEnum::commit->value])
             ->sum('amount');
     }
 }

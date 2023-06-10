@@ -38,5 +38,4 @@ Route::group(['prefix' => 'transactions', 'middleware' => ['auth:sanctum']], fun
 
 Route::group(['prefix' => 'commit', 'middleware' => ['auth:sanctum']], function () {
     Route::post('/', [AdminTransactionController::class, 'update'])->middleware('is_admin');
-    Route::post('/', [AdminTransactionController::class, 'update'])->middleware('is_admin');
 });

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\StatusEnum;
 use Tests\TestCase;
 use App\Models\User;
 use Database\Seeders\StatusSeeder;
@@ -50,6 +51,7 @@ class InitiateTransactionTest extends TestCase
 
         $this->assertDatabaseHas('transactions', [
             'id' => $response->decodeResponseJson()['data']['id'],
+            'status_id' => StatusEnum::initiate->value,
         ]);
 
         Notification::assertSentTo(

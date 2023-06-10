@@ -16,7 +16,7 @@ class Initiate
             'code' => Str::random(6),
             'user_id' => $dto->user_id,
             'amount' => $dto->amount,
-            'status_id' => StatusEnum::INITIATE
+            'status_id' => StatusEnum::initiate->value
         ]);
     }
 }

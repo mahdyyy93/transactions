@@ -12,7 +12,7 @@ class Update
     public function update(int $t_id, int $status_id): Transaction
     {
         $transaction = Transaction::find($t_id);
-
+        
         if ($transaction) {
             $transaction->status_id = $status_id;
             $transaction->save();

@@ -46,7 +46,7 @@ class WalletTest extends TestCase
         $this->assertEquals($this->user->wallet->credit, 5000);
 
         $response = $this->actingAs($this->user)->post('/api/transactions', [
-            "amount" => 50
+            "amount" => 5000
         ]);
 
         $this->actingAs($this->admin)->post(
@@ -57,7 +57,6 @@ class WalletTest extends TestCase
             ]
         );
 
-        $this->assertEquals($this->user->wallet->credit, 4950);
+        $this->assertEquals($this->user->wallet->credit, 0);
     }
-
 }

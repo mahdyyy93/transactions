@@ -20,8 +20,8 @@ class TransactionFactory extends Factory
     {
         return [
             'code' => Str::random(6),
-            'amount' => rand(10,100000),
-            'status_id' => rand(1,3),
+            'amount' => rand(10,50),
+            'status_id' => 1,
         ];
     }
 }

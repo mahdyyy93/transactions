@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Status;
 use App\Enums\StatusEnum;
 use App\Models\Transaction;
 use Database\Seeders\StatusSeeder;
@@ -41,7 +40,7 @@ class UpdateTransactionTest extends TestCase
             '/api/commit/', 
             [
                 'transaction_id' => $this->transaction->id,
-                'status_id' => Status::findByName(StatusEnum::COMMIT)->id,
+                'status_id' => StatusEnum::commit->value,
             ]
         );
         
@@ -62,7 +61,7 @@ class UpdateTransactionTest extends TestCase
 
         $this->assertDatabaseHas('transactions', [
             'id' => $this->transaction->id,
-            'status_id' => Status::findByName(StatusEnum::COMMIT)->id,
+            'status_id' => StatusEnum::commit->value,
         ]);
         
         Notification::assertSentTo(
@@ -76,7 +75,7 @@ class UpdateTransactionTest extends TestCase
             '/api/commit/', 
             [
                 'transaction_id' => $this->transaction->id,
-                'status_id' => Status::findByName(StatusEnum::REJECT)->id,
+                'status_id' => StatusEnum::reject->value,
             ]
         );
         
@@ -97,7 +96,7 @@ class UpdateTransactionTest extends TestCase
 
         $this->assertDatabaseHas('transactions', [
             'id' => $this->transaction->id,
-            'status_id' => Status::findByName(StatusEnum::REJECT)->id,
+            'status_id' => StatusEnum::reject->value,
         ]);
         
         Notification::assertSentTo(

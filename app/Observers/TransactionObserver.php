@@ -17,12 +17,22 @@ class TransactionObserver
     public $afterCommit = true;
 
     /**
-     * Handle the Transaction "saving" event.
+     * Handle the Transaction "creating" event.
      */
-    public function saving(Transaction $transaction): void
+    public function creating(Transaction $transaction): void
     {
         if ($transaction->amount > $transaction->user->wallet->credit)
         {
+            abort(403, 'Not enough credit');
+        }
+    }
+
+    /**
+     * Handle the Transaction "updating" event.
+     */
+    public function updating(Transaction $transaction): void
+    {
+        if ($transaction->amount - $transaction->getRawOriginal('amount') > $transaction->user->wallet->credit) {
             abort(403, 'Not enough credit');
         }
     }

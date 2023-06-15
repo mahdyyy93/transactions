@@ -23,10 +23,10 @@ Laravel with it's ecosystem is one of the best in the market, it's easy to use a
 - User has a wallet having his overall balance, credit and debit are calculated for better accuracy.
 - Credit and debit is checked against saving a transaction in TransactionObserver.
 - Audit package is used to record changes in transactions table.
+- API to show transactions history for admins and users 
 
 ## To do
 
-- API to show transactions history for admins and users 
 - Implement Settlements
 - Apply currencies to transactions table
 - Fix test workflow 

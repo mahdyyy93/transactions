@@ -8,11 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TransactionInitiated extends Notification
+class TransactionInitiated extends Notification implements ShouldQueue
 {
     use Queueable;
-
-    
 
     /**
      * Create a new notification instance.

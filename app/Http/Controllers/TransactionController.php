@@ -29,7 +29,7 @@ class TransactionController extends Controller
             ->when($status, function($query, $status) {
                     return $query->where('status_id', $status);
                 })
-            ->get()
+            ->paginate()
         );
     }
 
